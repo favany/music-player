@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Sooe - 音乐点亮世界</title>
+	<style type="text/css">
+		/*实现背景图片透明，内容不透明*/
+		#music {
+			width: 800px;
+			height: 800px;
+			border-radius: 10px;
+			margin: 20px auto;
+			position: relative;
+			background: url(./image/Heartbreak-Hotel.jpg) no-repeat;
+			background-size: cover;
+			text-align: center;
+		}
+		#container {
+			position: absolute;
+			left: 0;
+			right: 0;
+			top: 0;
+			bottom: 0;
+			width: 800px;
+			height: 800px;
+			text-align: center;
+			background:rgba(255,255,255,0.6);
+		}
+		/*实现背景图片透明，内容不透明*/
+
+		#musicImg {
+			width: 500px;
+			height: 500px;
+			border-radius: 50%;
+		}
+		audio {
+			display: block;
+			margin: 50px auto;
+		}
+		#musicName {
+			padding-top: 20px;
+			line-height: 30px;
+			color: purple;
+		}
+		.btn>button {
+			width: 100px;
+			height: 50px;
+			border-radius: 10px;
+			background: skyblue;
+		}
+	</style>
+</head>
+<body>
+	<div id="music">
+		<div id="container">
+			<h3 id="musicName">Heartbreak Hotel</h3>
+			<img src="image/Heartbreak-Hotel.jpg" id="musicImg">
+			<audio src="./music/Heartbreak-Hotel.mp3" controls id="audio"></audio>
+			<div class="btn">
+				<button id="play">播放</button>
+				<button id="pause">暂停</button>
+				<button id="prev">上一首</button>
+				<button id="next">下一首</button>
+			</div>
+		</div>
+	</div>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<div>本视频／资源仅供学习交流，严禁用于商业用途，请于24小时内删除。</div>
+	<script type="text/javascript">
+		var play = document.getElementById('play'),
+			pause = document.getElementById('pause'),
+			prev = document.getElementById('prev'),
+			next = document.getElementById('next'),
+			musicName = document.getElementById('musicName'),
+			musicImg = document.getElementById('musicImg'),
+			bgImage = document.getElementById('music');
+
+		var music = new Array();
+		music = ['Heartbreak-Hotel','舞娘-蔡依林','女孩你为何踮起脚尖','For_Him'];
+		var len = music.length;
+		var num = 0;
+
+		// 播放
+		play.onclick = function(){
+			if(audio.paused){
+				audio.play();
+			}
+		}
+
+		// 暂停
+		pause.onclick = function(){
+			if(audio.played){
+				audio.pause();
+			}
+		}
+
+		// 上一首
+		prev.onclick = function(){
+			num = (num + len - 1) % len;
+			audio.src = './music/' + music[num] + '.mp3';
+			musicName.innerHTML = music[num];
+			bgImage.style.backgroundImage = 'url(./image/' + music[num] + '.jpg)';
+			musicImg.src = './image/' + music[num] + '.jpg';
+			audio.play();
+		}
+
+		// 下一首
+		next.onclick = function(){
+			num = (num + 1) % len;
+			audio.src = './music/' + music[num] + '.mp3';
+			musicName.innerHTML = music[num];
+			bgImage.style.backgroundImage = 'url(./image/' + music[num] + '.jpg)';
+			musicImg.src = './image/' + music[num] + '.jpg';
+			audio.play();
+		}
+
+		// 自动切换下一首
+		audio.addEventListener('ended',function(){
+			next.onclick();
+		},false);
+	</script>
+</body>
+</html>
